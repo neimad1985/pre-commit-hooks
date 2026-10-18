@@ -1,0 +1,24 @@
+[project]
+name = "pre-commit-hooks"
+version = "0.1.0"
+description = "Shared pre-commit hooks that keep every project on the same configuration."
+readme = "README.md"
+authors = [
+    { name = "Damien Montigny", email = "damien.montigny@gmail.com" }
+]
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "typer==0.27.3",
+]
+
+[project.scripts]
+sync-config = "pre_commit_hooks.sync_config.cli:app"
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+]
