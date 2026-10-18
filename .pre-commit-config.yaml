@@ -1,1 +1,11 @@
-repos: []
+repos:
+- repo: local
+  hooks:
+  - id: sync-config
+    name: sync pre-commit config
+    description: Rewrites .pre-commit-config.yaml from the latest reference and fails
+      if it changed.
+    entry: uv run sync-config
+    language: system
+    always_run: true
+    pass_filenames: false

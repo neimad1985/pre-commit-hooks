@@ -2,6 +2,7 @@ from pathlib import Path
 
 import typer
 
+from pre_commit_hooks.sync_config.bootstrap import is_hooks_repository, localize_reference
 from pre_commit_hooks.sync_config.config import is_up_to_date
 from pre_commit_hooks.sync_config.reference import render_reference
 from pre_commit_hooks.sync_config.repository import find_latest_tag, read_file_at_tag
@@ -13,15 +14,21 @@ CONFIG_PATH = Path(".pre-commit-config.yaml")
 app = typer.Typer()
 
 
+def expected_config() -> str:
+    if is_hooks_repository(Path.cwd()):
+        return localize_reference(Path(REFERENCE_PATH).read_text(), Path.cwd(), REPOSITORY_URL)
+    latest_tag = find_latest_tag(REPOSITORY_URL)
+    return render_reference(read_file_at_tag(REPOSITORY_URL, latest_tag, REFERENCE_PATH), latest_tag)
+
+
 @app.command()
 def main() -> None:
-    """Rewrite .pre-commit-config.yaml from the latest reference and fail if it changed."""
-    latest_tag = find_latest_tag(REPOSITORY_URL)
-    expected_content = render_reference(read_file_at_tag(REPOSITORY_URL, latest_tag, REFERENCE_PATH), latest_tag)
+    """Rewrite .pre-commit-config.yaml from the reference and fail if it changed."""
+    expected_content = expected_config()
     if is_up_to_date(CONFIG_PATH, expected_content):
         return
     CONFIG_PATH.write_text(expected_content)
-    typer.echo(f"{CONFIG_PATH} synchronized with {latest_tag}, commit it and run again.", err=True)
+    typer.echo(f"{CONFIG_PATH} synchronized with the latest reference, commit it and run again.", err=True)
     raise typer.Exit(code=1)
 
 
