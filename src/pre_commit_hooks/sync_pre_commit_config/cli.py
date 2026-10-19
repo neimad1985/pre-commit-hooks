@@ -2,10 +2,10 @@ from pathlib import Path
 
 import typer
 
-from pre_commit_hooks.sync_config.bootstrap import is_hooks_repository, localize_reference
-from pre_commit_hooks.sync_config.config import is_up_to_date
-from pre_commit_hooks.sync_config.reference import render_reference
-from pre_commit_hooks.sync_config.repository import find_latest_tag, read_file_at_tag
+from pre_commit_hooks.sync_pre_commit_config.bootstrap import is_hooks_repository, localize_reference
+from pre_commit_hooks.sync_pre_commit_config.config import is_up_to_date
+from pre_commit_hooks.sync_pre_commit_config.reference import render_reference
+from pre_commit_hooks.sync_pre_commit_config.repository import find_latest_tag, read_file_at_tag
 
 REPOSITORY_URL = "https://github.com/neimad1985/pre-commit-hooks"
 REFERENCE_PATH = "reference/pre-commit-config.yaml"

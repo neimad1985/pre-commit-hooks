@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from pre_commit_hooks.sync_config.reference import render_reference
+from pre_commit_hooks.sync_pre_commit_config.reference import render_reference
 
 
 def test_render_reference_replaces_the_rev_placeholder_with_the_given_tag() -> None:

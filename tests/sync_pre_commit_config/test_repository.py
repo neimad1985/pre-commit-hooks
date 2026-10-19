@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from pre_commit_hooks.sync_config.repository import find_latest_tag, read_file_at_tag
+from pre_commit_hooks.sync_pre_commit_config.repository import find_latest_tag, read_file_at_tag
 
 
 def run_git(repository: Path, *arguments: str) -> None:

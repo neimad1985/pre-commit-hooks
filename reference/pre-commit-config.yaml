@@ -2,6 +2,6 @@ repos:
   - repo: https://github.com/neimad1985/pre-commit-hooks
     rev: {rev}
     hooks:
-      - id: sync-config
+      - id: sync-pre-commit-config
       - id: check-gitignore
       - id: check-transcrypt

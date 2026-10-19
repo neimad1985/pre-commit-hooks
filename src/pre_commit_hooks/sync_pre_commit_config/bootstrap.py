@@ -4,14 +4,14 @@ from typing import Any
 import yaml
 
 MANIFEST_FILENAME = ".pre-commit-hooks.yaml"
-SYNC_CONFIG_HOOK_ID = "sync-config"
+SYNC_PRE_COMMIT_CONFIG_HOOK_ID = "sync-pre-commit-config"
 
 
 def is_hooks_repository(directory: Path) -> bool:
     manifest_path = directory / MANIFEST_FILENAME
     if not manifest_path.exists():
         return False
-    return any(hook["id"] == SYNC_CONFIG_HOOK_ID for hook in yaml.safe_load(manifest_path.read_text()))
+    return any(hook["id"] == SYNC_PRE_COMMIT_CONFIG_HOOK_ID for hook in yaml.safe_load(manifest_path.read_text()))
 
 
 def localize_hook(manifest_hook: dict[str, Any]) -> dict[str, Any]:

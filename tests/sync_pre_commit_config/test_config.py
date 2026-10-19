@@ -1,7 +1,7 @@
 from pathlib import Path
 from textwrap import dedent
 
-from pre_commit_hooks.sync_config.config import is_up_to_date
+from pre_commit_hooks.sync_pre_commit_config.config import is_up_to_date
 
 
 def test_is_up_to_date_accepts_a_config_identical_to_the_expected_content(tmp_path: Path) -> None:
