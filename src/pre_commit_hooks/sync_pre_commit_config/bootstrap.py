@@ -3,8 +3,9 @@ from typing import Any
 
 import yaml
 
+from pre_commit_hooks.sync_pre_commit_config.config import SYNC_PRE_COMMIT_CONFIG_HOOK_ID, declares_sync_hook
+
 MANIFEST_FILENAME = ".pre-commit-hooks.yaml"
-SYNC_PRE_COMMIT_CONFIG_HOOK_ID = "sync-pre-commit-config"
 
 
 def is_hooks_repository(directory: Path) -> bool:
@@ -26,12 +27,12 @@ def localize_block(remote_block: dict[str, Any], manifest_hooks: list[dict[str, 
     }
 
 
-def localize_reference(reference: str, directory: Path, repository_url: str) -> str:
+def localize_reference(reference: str, directory: Path) -> str:
     """Remplace le bloc du dépôt de hooks par un bloc local qui lance le code du répertoire de travail."""
     config = yaml.safe_load(reference)
     manifest_hooks = yaml.safe_load((directory / MANIFEST_FILENAME).read_text())
     config["repos"] = [
-        localize_block(block, manifest_hooks) if block["repo"] == repository_url else block
+        localize_block(block, manifest_hooks) if declares_sync_hook(block) else block
         for block in config["repos"]
     ]
     return yaml.safe_dump(config, sort_keys=False)

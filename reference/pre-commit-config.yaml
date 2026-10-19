@@ -5,3 +5,4 @@ repos:
       - id: sync-pre-commit-config
       - id: check-gitignore
       - id: check-transcrypt
+      - id: sync-ruff-config

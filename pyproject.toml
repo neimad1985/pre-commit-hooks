@@ -16,6 +16,7 @@ dependencies = [
 sync-pre-commit-config = "pre_commit_hooks.sync_pre_commit_config.cli:app"
 check-gitignore = "pre_commit_hooks.check_gitignore.cli:app"
 check-transcrypt = "pre_commit_hooks.check_transcrypt.cli:app"
+sync-ruff-config = "pre_commit_hooks.sync_ruff_config.cli:app"
 
 [build-system]
 requires = ["hatchling==1.32.4"]

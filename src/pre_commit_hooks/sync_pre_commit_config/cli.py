@@ -3,11 +3,10 @@ from pathlib import Path
 import typer
 
 from pre_commit_hooks.sync_pre_commit_config.bootstrap import is_hooks_repository, localize_reference
-from pre_commit_hooks.sync_pre_commit_config.config import is_up_to_date
+from pre_commit_hooks.sync_pre_commit_config.config import find_hooks_repository_url, is_up_to_date
 from pre_commit_hooks.sync_pre_commit_config.reference import render_reference
 from pre_commit_hooks.sync_pre_commit_config.repository import find_latest_tag, read_file_at_tag
 
-REPOSITORY_URL = "https://github.com/neimad1985/pre-commit-hooks"
 REFERENCE_PATH = "reference/pre-commit-config.yaml"
 CONFIG_PATH = Path(".pre-commit-config.yaml")
 
@@ -16,9 +15,10 @@ app = typer.Typer()
 
 def expected_config() -> str:
     if is_hooks_repository(Path.cwd()):
-        return localize_reference(Path(REFERENCE_PATH).read_text(), Path.cwd(), REPOSITORY_URL)
-    latest_tag = find_latest_tag(REPOSITORY_URL)
-    return render_reference(read_file_at_tag(REPOSITORY_URL, latest_tag, REFERENCE_PATH), latest_tag)
+        return localize_reference(Path(REFERENCE_PATH).read_text(), Path.cwd())
+    repository_url = find_hooks_repository_url(CONFIG_PATH)
+    latest_tag = find_latest_tag(repository_url)
+    return render_reference(read_file_at_tag(repository_url, latest_tag, REFERENCE_PATH), latest_tag)
 
 
 @app.command()

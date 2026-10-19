@@ -19,3 +19,10 @@
   language: python
   always_run: true
   pass_filenames: false
+- id: sync-ruff-config
+  name: sync ruff config
+  description: Rewrites ruff.toml from the reference in a Python project and fails if it changed.
+  entry: sync-ruff-config
+  language: python
+  always_run: true
+  pass_filenames: false
