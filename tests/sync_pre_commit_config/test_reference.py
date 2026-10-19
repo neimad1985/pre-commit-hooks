@@ -22,5 +22,5 @@ def test_render_reference_replaces_the_rev_placeholder_with_the_given_tag() -> N
 
 
 def test_render_reference_rejects_a_template_without_rev_placeholder() -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="placeholder"):
         render_reference("repos: []", "v1.2.0")

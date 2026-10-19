@@ -17,7 +17,10 @@ def main() -> None:
     if not missing_lines:
         return
     append_lines(GITIGNORE_PATH, missing_lines)
-    typer.echo(f"{GITIGNORE_PATH} completed with {', '.join(missing_lines)}, run `git add {GITIGNORE_PATH}` and commit again.", err=True)
+    typer.echo(
+        f"{GITIGNORE_PATH} completed with {', '.join(missing_lines)}, run `git add {GITIGNORE_PATH}` and commit again.",
+        err=True,
+    )
     raise typer.Exit(code=1)
 
 

@@ -1,7 +1,7 @@
 from importlib.resources import files
 from pathlib import Path
 
-from conftest import HookRunner
+from tests.conftest import HookRunner
 
 REFERENCE = files("pre_commit_hooks.sync_ruff_config").joinpath("ruff.toml").read_text()
 

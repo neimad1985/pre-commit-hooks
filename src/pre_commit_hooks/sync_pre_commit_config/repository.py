@@ -10,7 +10,8 @@ def run_git(*arguments: str) -> str:
 def find_latest_tag(repository_url: str) -> str:
     references = run_git("ls-remote", "--tags", "--refs", "--sort=-v:refname", repository_url).splitlines()
     if not references:
-        raise LookupError(f"No tag found in {repository_url}")
+        message = f"No tag found in {repository_url}"
+        raise LookupError(message)
     _, latest_reference = references[0].split("\t")
     return latest_reference.removeprefix("refs/tags/")
 

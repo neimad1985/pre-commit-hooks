@@ -8,6 +8,7 @@ def is_initialized(repository: Path) -> bool:
     # --name-only n'affiche que le nom de la clé : le mot de passe ne sort jamais.
     completed = subprocess.run(
         ["git", "-C", str(repository), "config", "--local", "--get-regexp", "--name-only", r"^transcrypt\.password$"],
+        check=False,
         capture_output=True,
         text=True,
     )

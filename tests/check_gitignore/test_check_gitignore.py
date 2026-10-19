@@ -1,7 +1,7 @@
 from pathlib import Path
 from textwrap import dedent
 
-from conftest import HookRunner
+from tests.conftest import HookRunner
 
 
 def test_check_gitignore_passes_and_keeps_a_complete_gitignore(repository: Path, run_hook: HookRunner) -> None:
@@ -45,10 +45,12 @@ def test_check_gitignore_fails_and_creates_a_missing_gitignore(repository: Path,
 
 
 def test_check_gitignore_requires_the_trailing_slash_of_pycache(repository: Path, run_hook: HookRunner) -> None:
-    (repository / ".gitignore").write_text(dedent("""\
+    (repository / ".gitignore").write_text(
+        dedent("""\
         __pycache__
         .venv/
-    """))
+    """)
+    )
 
     result = run_hook("check-gitignore")
 

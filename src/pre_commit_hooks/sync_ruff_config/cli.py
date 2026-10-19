@@ -20,7 +20,10 @@ def main() -> None:
     if is_up_to_date(RUFF_CONFIG_PATH, expected_content):
         return
     RUFF_CONFIG_PATH.write_text(expected_content)
-    typer.echo(f"{RUFF_CONFIG_PATH} synchronized with the reference, run `git add {RUFF_CONFIG_PATH}` and commit again.", err=True)
+    typer.echo(
+        f"{RUFF_CONFIG_PATH} synchronized with the reference, run `git add {RUFF_CONFIG_PATH}` and commit again.",
+        err=True,
+    )
     raise typer.Exit(code=1)
 
 

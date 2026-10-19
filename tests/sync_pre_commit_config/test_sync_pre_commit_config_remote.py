@@ -1,9 +1,8 @@
 from pathlib import Path
-from textwrap import dedent
 
 import pytest
 
-from conftest import HookRunner, run_git
+from tests.conftest import HookRunner, run_git
 
 
 def reference_template(hooks_repository: Path, hook_ids: list[str]) -> str:
@@ -12,7 +11,9 @@ def reference_template(hooks_repository: Path, hook_ids: list[str]) -> str:
 
 
 def publish(hooks_repository: Path, hook_ids: list[str], tag: str) -> None:
-    (hooks_repository / "reference" / "pre-commit-config.yaml").write_text(reference_template(hooks_repository, hook_ids))
+    (hooks_repository / "reference" / "pre-commit-config.yaml").write_text(
+        reference_template(hooks_repository, hook_ids)
+    )
     run_git(hooks_repository, "add", "reference")
     run_git(hooks_repository, "commit", "--message", tag)
     run_git(hooks_repository, "tag", tag)

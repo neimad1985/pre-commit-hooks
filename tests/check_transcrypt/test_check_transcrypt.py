@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from conftest import HookRunner, run_git
+from tests.conftest import HookRunner, run_git
 
 TRANSCRYPT_LINE = "secrets.* filter=crypt diff=crypt merge=crypt\n"
 
@@ -26,7 +26,9 @@ def initialized_repository(repository: Path) -> Path:
 
 def has_crypt_filter(repository: Path) -> bool:
     lookup = subprocess.run(
-        ["git", "-C", str(repository), "config", "--local", "--get", "filter.crypt.clean"], capture_output=True
+        ["git", "-C", str(repository), "config", "--local", "--get", "filter.crypt.clean"],
+        check=False,
+        capture_output=True,
     )
     return lookup.returncode == 0
 

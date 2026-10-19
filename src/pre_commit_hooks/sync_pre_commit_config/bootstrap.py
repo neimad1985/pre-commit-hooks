@@ -32,7 +32,6 @@ def localize_reference(reference: str, directory: Path) -> str:
     config = yaml.safe_load(reference)
     manifest_hooks = yaml.safe_load((directory / MANIFEST_FILENAME).read_text())
     config["repos"] = [
-        localize_block(block, manifest_hooks) if declares_sync_hook(block) else block
-        for block in config["repos"]
+        localize_block(block, manifest_hooks) if declares_sync_hook(block) else block for block in config["repos"]
     ]
     return yaml.safe_dump(config, sort_keys=False)

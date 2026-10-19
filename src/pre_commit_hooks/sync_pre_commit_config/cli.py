@@ -28,7 +28,9 @@ def main() -> None:
     if is_up_to_date(CONFIG_PATH, expected_content):
         return
     CONFIG_PATH.write_text(expected_content)
-    typer.echo(f"{CONFIG_PATH} synchronized with the latest reference, run `git add {CONFIG_PATH}` and commit again.", err=True)
+    typer.echo(
+        f"{CONFIG_PATH} synchronized with the latest reference, run `git add {CONFIG_PATH}` and commit again.", err=True
+    )
     raise typer.Exit(code=1)
 
 
