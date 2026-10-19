@@ -4,3 +4,4 @@ repos:
     hooks:
       - id: sync-config
       - id: check-gitignore
+      - id: check-transcrypt

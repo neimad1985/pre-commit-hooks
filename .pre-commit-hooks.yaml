@@ -12,3 +12,10 @@
   language: python
   always_run: true
   pass_filenames: false
+- id: check-transcrypt
+  name: check transcrypt
+  description: Adds the transcrypt line missing from .gitattributes and initializes transcrypt if needed.
+  entry: check-transcrypt
+  language: python
+  always_run: true
+  pass_filenames: false

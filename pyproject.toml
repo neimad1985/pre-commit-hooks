@@ -15,6 +15,7 @@ dependencies = [
 [project.scripts]
 sync-config = "pre_commit_hooks.sync_config.cli:app"
 check-gitignore = "pre_commit_hooks.check_gitignore.cli:app"
+check-transcrypt = "pre_commit_hooks.check_transcrypt.cli:app"
 
 [build-system]
 requires = ["hatchling==1.32.4"]

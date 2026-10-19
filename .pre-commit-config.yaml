@@ -17,3 +17,11 @@ repos:
     language: system
     always_run: true
     pass_filenames: false
+  - id: check-transcrypt
+    name: check transcrypt
+    description: Adds the transcrypt line missing from .gitattributes and initializes
+      transcrypt if needed.
+    entry: uv run check-transcrypt
+    language: system
+    always_run: true
+    pass_filenames: false
