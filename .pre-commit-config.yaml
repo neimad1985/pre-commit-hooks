@@ -9,3 +9,11 @@ repos:
     language: system
     always_run: true
     pass_filenames: false
+  - id: check-gitignore
+    name: check gitignore
+    description: Adds the required lines missing from .gitignore and fails if any
+      was missing.
+    entry: uv run check-gitignore
+    language: system
+    always_run: true
+    pass_filenames: false
