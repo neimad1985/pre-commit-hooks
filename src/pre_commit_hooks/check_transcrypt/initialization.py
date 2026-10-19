@@ -14,6 +14,19 @@ def is_initialized(repository: Path) -> bool:
     return completed.returncode == 0
 
 
-def initialize(password_file: Path) -> None:
+def initialize(repository: Path, password_file: Path) -> None:
     password = password_file.read_text().strip()
-    subprocess.run(["transcrypt", "--cipher", CIPHER, "--password", password, "--yes"], check=True, capture_output=True)
+    subprocess.run(
+        ["transcrypt", "--cipher", CIPHER, "--password", password, "--yes"],
+        cwd=repository,
+        check=True,
+        capture_output=True,
+    )
+
+
+def ensure_initialized(repository: Path, password_file: Path) -> bool:
+    """Initialise transcrypt au besoin et indique si l'initialisation vient d'avoir lieu."""
+    if is_initialized(repository):
+        return False
+    initialize(repository, password_file)
+    return True
