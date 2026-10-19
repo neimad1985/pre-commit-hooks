@@ -7,7 +7,7 @@ import yaml
 from tests.conftest import HookRunner
 
 REPOSITORY_URL = "https://example.com/hooks"
-OTHER_BLOCK = {"repo": "https://example.com/other-hooks", "rev": "v1.0.0", "hooks": [{"id": "other-hook"}]}
+OTHER_BLOCK = {"repo": "https://example.com/other-hooks", "rev": "1.0.0", "hooks": [{"id": "other-hook"}]}
 
 
 @pytest.fixture
