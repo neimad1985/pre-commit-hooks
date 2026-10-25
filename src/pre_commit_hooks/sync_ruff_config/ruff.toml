@@ -22,7 +22,7 @@ ignore = [
     "D1",
     # Le résumé d'une docstring commence à la ligne qui suit les guillemets (D213).
     "D212",
-    # La licence du dépôt suffit, sans mention de copyright par fichier.
+    # Pas de mention de copyright par fichier.
     "CPY001",
     # Python 3.14 n'évalue plus les annotations au chargement : les blocs TYPE_CHECKING n'apportent rien.
     "TC001",
