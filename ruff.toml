@@ -1,3 +1,5 @@
+src = ["src", "*/src"]
+
 [lint]
 select = ["ALL"]
 # Rules that conflict with the ruff formatter, according to its documentation.
@@ -36,3 +38,4 @@ ignore = [
 [lint.per-file-ignores]
 # python -O strips assert statements, which does not affect tests.
 "tests/**" = ["S101"]
+"*/tests/**" = ["S101"]
