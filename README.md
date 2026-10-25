@@ -26,7 +26,15 @@ prek run --all-files
 
 ## Publier une version
 
-Pousser un tag semver sans `v`, par exemple `0.7.0`. Chaque projet passe sur ce tag à son commit suivant.
+Tag semver sans `v`. Tag léger, jamais annoté : `git tag` sans l'option `-a`. Chaque projet passe sur ce tag à son
+commit suivant.
+
+```bash
+git add <fichiers>
+git commit --message "<message>"
+git tag <version>
+git push origin main <version>
+```
 
 ## Développement
 
