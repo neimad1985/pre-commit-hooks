@@ -2,7 +2,7 @@ line-length = 120
 
 [lint]
 select = ["ALL"]
-# Règles en conflit avec le formateur ruff, d'après sa documentation.
+# Rules that conflict with the ruff formatter, according to its documentation.
 ignore = [
     "W191",
     "E111",
@@ -18,23 +18,23 @@ ignore = [
     "Q004",
     "COM812",
     "COM819",
-    # Les docstrings ne sont obligatoires nulle part.
+    # Docstrings are not required anywhere.
     "D1",
-    # Le résumé d'une docstring commence à la ligne qui suit les guillemets (D213).
+    # A docstring summary starts on the line after the opening quotes (D213).
     "D212",
-    # Pas de mention de copyright par fichier.
+    # No copyright notice per file.
     "CPY001",
-    # Python 3.14 n'évalue plus les annotations au chargement : les blocs TYPE_CHECKING n'apportent rien.
+    # Python 3.14 no longer evaluates annotations at import time: TYPE_CHECKING blocks add nothing.
     "TC001",
     "TC002",
     "TC003",
-    # Les hooks lancent des commandes écrites en dur, comme git, sans chemin absolu commun aux machines.
+    # Hooks run hard-coded commands, such as git, with no absolute path shared across machines.
     "S603",
     "S607",
-    # Les exceptions standard portent leur message : pas de classe dédiée sans attribut.
+    # Standard exceptions carry their message: no dedicated class without attributes.
     "TRY003",
 ]
 
 [lint.per-file-ignores]
-# python -O supprime les assert, ce qui ne concerne pas les tests.
+# python -O strips assert statements, which does not affect tests.
 "tests/**" = ["S101"]
