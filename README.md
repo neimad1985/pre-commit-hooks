@@ -22,7 +22,7 @@ prek run --all-files
 | `sync-pre-commit-config` | Réécrit `.pre-commit-config.yaml` d'après [la référence](reference/pre-commit-config.yaml) du dernier tag. |
 | `check-gitignore` | Vérifie le contenu de `.gitignore`. |
 | `check-transcrypt` | Ajoute la ligne `secrets.*` à `.gitattributes` et initialise transcrypt au besoin. |
-| `sync-ruff-config` | Réécrit `ruff.toml` d'après [la référence](src/pre_commit_hooks/sync_ruff_config/ruff.toml), si le projet a un `pyproject.toml`. |
+| `sync-ruff-config` | Réécrit `ruff.toml` d'après [la référence](src/pre_commit_hooks/sync_ruff_config/ruff.toml), si le dépôt suit au moins un fichier Python. |
 
 ## Publier une version
 
