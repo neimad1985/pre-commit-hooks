@@ -14,15 +14,23 @@ app = typer.Typer()
 
 @app.command()
 def main() -> None:
-    """Add the transcrypt line missing from .gitattributes, initialize transcrypt if needed."""
+    """Add the transcrypt line to .gitattributes, initialize transcrypt if needed."""
     initialized = ensure_initialized(Path.cwd(), PASSWORD_FILE)
     if initialized:
-        # Les secrets indexés avant l'initialisation l'ont été sans filtre, donc en clair.
-        typer.echo("transcrypt initialized, run `git add --renormalize .` and commit again.", err=True)
+        # Les secrets indexés avant l'initialisation l'ont été sans filtre,
+        # donc en clair.
+        typer.echo(
+            "transcrypt initialized, run `git add --renormalize .` and commit again.",
+            err=True,
+        )
     missing_lines = find_missing_lines(GITATTRIBUTES_PATH, REQUIRED_LINES)
     if missing_lines:
         append_lines(GITATTRIBUTES_PATH, missing_lines)
-        typer.echo(f"{GITATTRIBUTES_PATH} completed, run `git add {GITATTRIBUTES_PATH}` and commit again.", err=True)
+        typer.echo(
+            f"{GITATTRIBUTES_PATH} completed, "
+            f"run `git add {GITATTRIBUTES_PATH}` and commit again.",
+            err=True,
+        )
     if initialized or missing_lines:
         raise typer.Exit(code=1)
 

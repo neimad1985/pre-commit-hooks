@@ -1,5 +1,3 @@
-line-length = 120
-
 [lint]
 select = ["ALL"]
 # Rules that conflict with the ruff formatter, according to its documentation.

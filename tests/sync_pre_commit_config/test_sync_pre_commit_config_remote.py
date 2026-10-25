@@ -7,7 +7,9 @@ from tests.conftest import HookRunner, run_git
 
 def reference_template(hooks_repository: Path, hook_ids: list[str]) -> str:
     hooks = "".join(f"          - id: {hook_id}\n" for hook_id in hook_ids)
-    return f"repos:\n  - repo: {hooks_repository}\n    rev: {{rev}}\n    hooks:\n{hooks}"
+    return (
+        f"repos:\n  - repo: {hooks_repository}\n    rev: {{rev}}\n    hooks:\n{hooks}"
+    )
 
 
 def publish(hooks_repository: Path, hook_ids: list[str], tag: str) -> None:
@@ -21,7 +23,11 @@ def publish(hooks_repository: Path, hook_ids: list[str], tag: str) -> None:
 
 @pytest.fixture
 def hooks_repository(tmp_path: Path) -> Path:
-    """Faux dépôt de hooks local qui remplace GitHub : 1.0.0, puis 1.1.0 avec un hook de plus."""
+    """
+    Faux dépôt de hooks local qui remplace GitHub.
+
+    Il publie 1.0.0, puis 1.1.0 avec un hook de plus.
+    """
     hooks_repository = tmp_path / "hooks"
     (hooks_repository / "reference").mkdir(parents=True)
     run_git(hooks_repository, "init")
@@ -40,7 +46,9 @@ def test_sync_pre_commit_config_fails_and_moves_an_outdated_project_to_the_lates
     repository: Path, hooks_repository: Path, run_hook: HookRunner
 ) -> None:
     config = repository / ".pre-commit-config.yaml"
-    config.write_text(rendered_reference(hooks_repository, ["sync-pre-commit-config"], "1.0.0"))
+    config.write_text(
+        rendered_reference(hooks_repository, ["sync-pre-commit-config"], "1.0.0")
+    )
 
     result = run_hook("sync-pre-commit-config")
 
@@ -54,7 +62,9 @@ def test_sync_pre_commit_config_passes_in_an_up_to_date_project(
     repository: Path, hooks_repository: Path, run_hook: HookRunner
 ) -> None:
     config = repository / ".pre-commit-config.yaml"
-    content = rendered_reference(hooks_repository, ["sync-pre-commit-config", "check-gitignore"], "1.1.0")
+    content = rendered_reference(
+        hooks_repository, ["sync-pre-commit-config", "check-gitignore"], "1.1.0"
+    )
     config.write_text(content)
 
     result = run_hook("sync-pre-commit-config")

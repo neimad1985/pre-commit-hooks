@@ -10,7 +10,12 @@ type HookRunner = Callable[..., subprocess.CompletedProcess[str]]
 
 
 def run_git(repository: Path, *arguments: str) -> str:
-    return subprocess.run(["git", "-C", str(repository), *arguments], check=True, capture_output=True, text=True).stdout
+    return subprocess.run(
+        ["git", "-C", str(repository), *arguments],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
 
 
 @pytest.fixture
@@ -27,7 +32,9 @@ def repository(tmp_path: Path) -> Path:
 def run_hook(repository: Path) -> HookRunner:
     """Lance l'exécutable d'un hook installé dans le venv, depuis le dépôt de test."""
 
-    def run(hook: str, environment: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
+    def run(
+        hook: str, environment: dict[str, str] | None = None
+    ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [str(Path(sys.executable).parent / hook)],
             check=False,

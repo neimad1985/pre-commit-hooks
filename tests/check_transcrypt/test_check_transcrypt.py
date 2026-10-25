@@ -20,13 +20,23 @@ def home(tmp_path: Path) -> dict[str, str]:
 
 @pytest.fixture
 def initialized_repository(repository: Path) -> Path:
-    run_git(repository, "config", "--local", "transcrypt.password", "fake-password-for-test")
+    run_git(
+        repository, "config", "--local", "transcrypt.password", "fake-password-for-test"
+    )
     return repository
 
 
 def has_crypt_filter(repository: Path) -> bool:
     lookup = subprocess.run(
-        ["git", "-C", str(repository), "config", "--local", "--get", "filter.crypt.clean"],
+        [
+            "git",
+            "-C",
+            str(repository),
+            "config",
+            "--local",
+            "--get",
+            "filter.crypt.clean",
+        ],
         check=False,
         capture_output=True,
     )
@@ -52,7 +62,7 @@ def test_check_transcrypt_fails_and_adds_the_missing_transcrypt_line(
     assert (initialized_repository / ".gitattributes").read_text() == TRANSCRYPT_LINE
 
 
-def test_check_transcrypt_fails_after_initializing_transcrypt_so_that_secrets_get_encrypted(
+def test_check_transcrypt_fails_after_initializing_transcrypt_so_that_secrets_get_encrypted(  # noqa: E501
     repository: Path, run_hook: HookRunner, home: dict[str, str]
 ) -> None:
     result = run_hook("check-transcrypt", home)

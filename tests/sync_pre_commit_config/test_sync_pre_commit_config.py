@@ -7,12 +7,20 @@ import yaml
 from tests.conftest import HookRunner
 
 REPOSITORY_URL = "https://example.com/hooks"
-OTHER_BLOCK = {"repo": "https://example.com/other-hooks", "rev": "1.0.0", "hooks": [{"id": "other-hook"}]}
+OTHER_BLOCK = {
+    "repo": "https://example.com/other-hooks",
+    "rev": "1.0.0",
+    "hooks": [{"id": "other-hook"}],
+}
 
 
 @pytest.fixture
 def hooks_repository(repository: Path) -> Path:
-    """Fait du dépôt de test un dépôt de hooks, ce qui met sync-pre-commit-config en mode bootstrap."""
+    """
+    Fait du dépôt de test un dépôt de hooks.
+
+    sync-pre-commit-config passe alors en mode bootstrap.
+    """
     (repository / ".pre-commit-hooks.yaml").write_text(
         dedent("""\
         - id: sync-pre-commit-config
@@ -40,7 +48,7 @@ def hooks_repository(repository: Path) -> Path:
     return repository
 
 
-def test_sync_pre_commit_config_fails_and_writes_a_local_block_while_keeping_other_repositories(
+def test_sync_pre_commit_config_fails_and_writes_a_local_block_while_keeping_other_repositories(  # noqa: E501
     hooks_repository: Path, run_hook: HookRunner
 ) -> None:
     result = run_hook("sync-pre-commit-config")
@@ -66,7 +74,9 @@ def test_sync_pre_commit_config_fails_and_writes_a_local_block_while_keeping_oth
 
 
 @pytest.mark.usefixtures("hooks_repository")
-def test_sync_pre_commit_config_passes_with_an_up_to_date_config(run_hook: HookRunner) -> None:
+def test_sync_pre_commit_config_passes_with_an_up_to_date_config(
+    run_hook: HookRunner,
+) -> None:
     run_hook("sync-pre-commit-config")
 
     result = run_hook("sync-pre-commit-config")

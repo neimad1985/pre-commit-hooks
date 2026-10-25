@@ -13,7 +13,7 @@ app = typer.Typer()
 
 @app.command()
 def main() -> None:
-    """Rewrite ruff.toml from the reference in a repository with Python files and fail if it changed."""
+    """Rewrite ruff.toml from the reference if Python files exist, fail on change."""
     if not contains_python_files(Path.cwd()):
         return
     expected_content = read_reference()
@@ -21,7 +21,8 @@ def main() -> None:
         return
     RUFF_CONFIG_PATH.write_text(expected_content)
     typer.echo(
-        f"{RUFF_CONFIG_PATH} synchronized with the reference, run `git add {RUFF_CONFIG_PATH}` and commit again.",
+        f"{RUFF_CONFIG_PATH} synchronized with the reference, "
+        f"run `git add {RUFF_CONFIG_PATH}` and commit again.",
         err=True,
     )
     raise typer.Exit(code=1)

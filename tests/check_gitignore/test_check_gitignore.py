@@ -4,7 +4,9 @@ from textwrap import dedent
 from tests.conftest import HookRunner
 
 
-def test_check_gitignore_passes_and_keeps_a_complete_gitignore(repository: Path, run_hook: HookRunner) -> None:
+def test_check_gitignore_passes_and_keeps_a_complete_gitignore(
+    repository: Path, run_hook: HookRunner
+) -> None:
     content = dedent("""\
         /legacy
         __pycache__/
@@ -34,7 +36,9 @@ def test_check_gitignore_fails_and_appends_missing_lines_after_existing_ones(
     assert "git add .gitignore" in result.stderr
 
 
-def test_check_gitignore_fails_and_creates_a_missing_gitignore(repository: Path, run_hook: HookRunner) -> None:
+def test_check_gitignore_fails_and_creates_a_missing_gitignore(
+    repository: Path, run_hook: HookRunner
+) -> None:
     result = run_hook("check-gitignore")
 
     assert result.returncode == 1
@@ -44,7 +48,9 @@ def test_check_gitignore_fails_and_creates_a_missing_gitignore(repository: Path,
     """)
 
 
-def test_check_gitignore_requires_the_trailing_slash_of_pycache(repository: Path, run_hook: HookRunner) -> None:
+def test_check_gitignore_requires_the_trailing_slash_of_pycache(
+    repository: Path, run_hook: HookRunner
+) -> None:
     (repository / ".gitignore").write_text(
         dedent("""\
         __pycache__

@@ -7,7 +7,16 @@ CIPHER = "aes-256-cbc"
 def is_initialized(repository: Path) -> bool:
     # --name-only n'affiche que le nom de la clé : le mot de passe ne sort jamais.
     completed = subprocess.run(
-        ["git", "-C", str(repository), "config", "--local", "--get-regexp", "--name-only", r"^transcrypt\.password$"],
+        [
+            "git",
+            "-C",
+            str(repository),
+            "config",
+            "--local",
+            "--get-regexp",
+            "--name-only",
+            r"^transcrypt\.password$",
+        ],
         check=False,
         capture_output=True,
         text=True,
@@ -26,7 +35,7 @@ def initialize(repository: Path, password_file: Path) -> None:
 
 
 def ensure_initialized(repository: Path, password_file: Path) -> bool:
-    """Initialise transcrypt au besoin et indique si l'initialisation vient d'avoir lieu."""
+    """Initialise transcrypt au besoin et indique s'il vient de l'être."""
     if is_initialized(repository):
         return False
     initialize(repository, password_file)
